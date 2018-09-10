@@ -61,6 +61,12 @@ public class SubjectTest {
     }
 
     @Test
+    public void getTotal_SimpleValue_ReturnsCorrectly() {
+        Subject subject = new Subject("name", "code", 0, 1, 2, 3, 4);
+        assertEquals(6, subject.getTotal());
+    }
+
+    @Test
     public void getLabPresent_SimpleValue_ReturnsCorrectly() {
         Subject subject = new Subject("name", "code", 0, 1, 2, 3, 4);
         assertEquals(1, subject.getLabPresent());
