@@ -24,7 +24,40 @@
 
 package app.abhijit.iter.models;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
 public class StudentTest {
 
-    // TODO: Add tests
+    @Test
+    public void getUsername_SimpleValue_ReturnsCorrectly() {
+        Student student = new Student("username", "password", "name", new Subject[0]);
+        assertEquals("username", student.getUsername());
+    }
+
+    @Test
+    public void getPassword_SimpleValue_ReturnsCorrectly() {
+        Student student = new Student("username", "password", "name", new Subject[0]);
+        assertEquals("password", student.getPassword());
+    }
+
+    @Test
+    public void getName_SimpleValue_ReturnsCorrectly() {
+        Student student = new Student("username", "password", "name", new Subject[0]);
+        assertEquals("name", student.getName());
+    }
+
+    @Test
+    public void getSubjects_EmptySubjectArray_ReturnsEmptyMap() {
+        Student student = new Student("username", "password", "name", new Subject[0]);
+        assertEquals(0, student.getSubjects().size());
+    }
+
+    @Test
+    public void getSubjects_SubjectArray_ReturnsSubjectMap() {
+        Subject subjects[] = { new Subject("subject 001", "S001", 0, 0, 0, 0, 0) };
+        Student student = new Student("username", "password", "name", subjects);
+        assertEquals("subject 001", student.getSubjects().get("S001").getName());
+    }
 }

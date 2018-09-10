@@ -24,15 +24,50 @@
 
 package app.abhijit.iter.models;
 
-import java.util.HashMap;
+import android.support.annotation.NonNull;
+
+import java.util.Collections;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * This class represents a student.
  */
 public class Student {
 
-    public String username;
-    public String password;
-    public String name;
-    public HashMap<String, Subject> subjects = new HashMap<>();
+    private final String username;
+    private final String password;
+    private final String name;
+    private final TreeMap<String, Subject> subjects;
+
+    public Student(@NonNull String username, @NonNull String password, @NonNull String name,
+                   @NonNull Subject subjects[]) {
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.subjects = new TreeMap<>();
+        for (Subject subject : subjects) {
+            this.subjects.put(subject.getCode(), subject);
+        }
+    }
+
+    @NonNull
+    public String getUsername() {
+        return this.username;
+    }
+
+    @NonNull
+    public String getPassword() {
+        return this.password;
+    }
+
+    @NonNull
+    public String getName() {
+        return this.name;
+    }
+
+    @NonNull
+    public Map<String, Subject> getSubjects() {
+        return Collections.unmodifiableSortedMap(this.subjects);
+    }
 }
