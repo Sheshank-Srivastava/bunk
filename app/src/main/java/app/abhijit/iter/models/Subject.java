@@ -34,29 +34,70 @@ import java.util.Formatter;
  */
 public class Subject {
 
-    public String name;
-    public String code;
-    public long lastUpdated;
-    public int labPresent;
-    public int labTotal;
-    public int theoryPresent;
-    public int theoryTotal;
+    private final String name;
+    private final String code;
+    private final long lastUpdated;
+    private final int labPresent;
+    private final int labTotal;
+    private final int theoryPresent;
+    private final int theoryTotal;
 
-    public int present() {
+    public Subject(@NonNull String name, @NonNull String code, long lastUpdated, int labPresent,
+                   int labTotal, int theoryPresent, int theoryTotal) {
+        this.name = name;
+        this.code = code;
+        this.lastUpdated = lastUpdated;
+        this.labPresent = labPresent;
+        this.labTotal = labTotal;
+        this.theoryPresent = theoryPresent;
+        this.theoryTotal = theoryTotal;
+    }
+
+    @NonNull
+    public String getName() {
+        return this.name;
+    }
+
+    @NonNull
+    public String getCode() {
+        return this.code;
+    }
+
+    public long getLastUpdated() {
+        return this.lastUpdated;
+    }
+
+    public int getPresent() {
         return this.labPresent + this.theoryPresent;
     }
 
-    public int absent() {
-        return total() - present();
+    public int getAbsent() {
+        return this.getTotal() - this.getPresent();
     }
 
-    public int total() {
+    public int getTotal() {
         return this.theoryTotal + this.labTotal;
     }
 
-    public double attendance() {
-        double present = (double) present();
-        double total = (double) total();
+    public int getLabPresent() {
+        return this.labPresent;
+    }
+
+    public int getLabTotal() {
+        return this.labTotal;
+    }
+
+    public int getTheoryPresent() {
+        return this.theoryPresent;
+    }
+
+    public int getTheoryTotal() {
+        return this.theoryTotal;
+    }
+
+    public double getAttendance() {
+        double present = (double) this.getPresent();
+        double total = (double) this.getTotal();
 
         if (Double.compare(total, 0.0) > 0) {
             return (present / total) * 100;
@@ -66,14 +107,14 @@ public class Subject {
     }
 
     @NonNull
-    public String bunkStats(int minimumAttendance, boolean extendedStats) {
+    public String getBunkStats(int minimumAttendance, boolean extendedStats) {
         StringBuilder bunkStats = new StringBuilder("");
         ArrayList<String> bunk = new ArrayList<>();
         ArrayList<String> need = new ArrayList<>();
-        int attendance = (int) attendance();
-        int classes = total();
-        int classesPresent = present();
-        int classesAbsent = absent();
+        int attendance = (int) this.getAttendance();
+        int classes = this.getTotal();
+        int classesPresent = this.getPresent();
+        int classesAbsent = this.getAbsent();
         int lastDays;
         int approxTotalClasses = 55;
 
